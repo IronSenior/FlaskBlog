@@ -19,3 +19,12 @@ class TestUser(unittest.TestCase):
         value = User(userid, username, usermail, fullname)
         
         self.assertEqual(type(value), expectedValue)
+
+
+    def test_tuple_constructor(self):
+        user_tuple = (str(uuid.uuid4()), "Pepe", "Jose Marquez", "pepemarquezof@gmail.com")
+
+        expectedValue = User
+        value = User.fromSortedStringTuple(user_tuple)
+
+        self.assertEqual(type(value), expectedValue)

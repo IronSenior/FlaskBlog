@@ -5,19 +5,32 @@ from .userId import UserId
 
 class User():
 
-    def __init__(self, userid: UserId, username: Username, userMail: UserMail, userFullname: Fullname = None):
-        self.__userId: userid
+    def __init__(self, userid: UserId, username: Username, userMail: UserMail, userFullname: Fullname):
+        self.__userId: UserId = userid
         self.__userName: Username = username
         self.__fullName: UserFullName = userFullname
         self.__email: UserMail = userMail
 
-    @property
-    def username(self):
-        return self.__username.value
+    @staticmethod
+    def fromSortedStringTuple(user: tuple):
+        return User(
+            userid = UserId.fromString(user[0]),
+            username = Username.fromString(user[1]),
+            userFullname= Fullname.fromString(user[2]),
+            userMail = UserMail.fromString(user[3]) 
+        )
 
     @property
-    def fulname(self):
-        return self.__fullname.value
+    def userId(self):
+        return self.__userId.value
+
+    @property
+    def username(self):
+        return self.__userName.value
+
+    @property
+    def fullname(self):
+        return self.__fullName.value
 
     @property
     def email(self):

@@ -3,10 +3,20 @@ from flask import request
 from flask import redirect
 from flask import url_for
 from flask import render_template
+import uuid
+import os
+from .forms import SignupForm, PostForm
 
-from forms import SignupForm, PostForm
+
+from .src.user.model.user import User
+from .src.user.model.username import Username
+from .src.user.model.fullname import Fullname
+from .src.user.model.usermail import UserMail
+from .src.user.model.userId import UserId
+from .src.user.repository.userRepository import UserRepository
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = os.environ["SECRET_KEY"]
 
 @app.route('/', methods=['GET'])
 def index():
@@ -23,8 +33,11 @@ def signupSend():
     form = SignupForm()
     if form.validate_on_submit():
         data = get_user_data(form)
-        #TODO
+        user = User(UserId(uuid.uuid4()), Username.fromString(data["name"]), UserMail.fromString(data["email"]), Fullname.fromString(data.get("fullname", "NO Name")))
+        repository = UserRepository()
+        repository.add(user)
         return redirect(url_for('index'))
+
     return render_template('signup_form.html', form=form)
 
 def get_user_data(form: SignupForm):
@@ -36,7 +49,6 @@ def get_user_data(form: SignupForm):
 
 
 @app.route('/newPost', methods=['GET'])
-
 def newPost():
     return render_template("post_form.html", form=PostForm())
 

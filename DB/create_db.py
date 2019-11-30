@@ -12,7 +12,7 @@ def create_user_table():
     users = db.Table('users', metadata,
               db.Column('userid', db.String(36), nullable=False),
               db.Column('username', db.String(255), nullable=False),
-              db.Column('fullname', db.String(255)),
+              db.Column('fullname', db.String(255), nullable=False),
               db.Column('email', db.String(255), nullable=False)
               )
               
