@@ -3,10 +3,10 @@ from flask import request
 from flask import redirect
 from flask import url_for
 from flask import render_template
+
 from forms import SignupForm, PostForm
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '7110c8ae51a4b5af97be6534caef90e4bb9bdcb3380af008f90b23a5d1616bf319bc298105da20fe'
 
 @app.route('/', methods=['GET'])
 def index():
@@ -36,6 +36,7 @@ def get_user_data(form: SignupForm):
 
 
 @app.route('/newPost', methods=['GET'])
+
 def newPost():
     return render_template("post_form.html", form=PostForm())
 
