@@ -2,5 +2,5 @@ from ..model.comment import Comment
 
 
 
-class CommentRepostory():
+class CommentRepository():
     pass
