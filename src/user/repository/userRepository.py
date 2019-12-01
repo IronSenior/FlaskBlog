@@ -18,12 +18,16 @@ class UserRepository():
         query = db.select([self.__users]).where(self.__users.columns.userid == userid)
         resultProxy = self.__conection.execute(query)
         resultSet = resultProxy.fetchall()
+        if not resultSet:
+            return None
         return User.fromSortedStringTuple(resultSet[0])
 
     def getByEmail(self, email: UserMail):
         query = db.select([self.__users]).where(self.__users.columns.email == email.value)
         resultProxy = self.__conection.execute(query)
         resultSet = resultProxy.fetchall()
+        if not resultSet:
+            return None
         return User.fromSortedStringTuple(resultSet[0])
 
     def add(self, user: User):

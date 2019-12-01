@@ -6,7 +6,6 @@ from flask_login import login_required
 from flask_login import login_user
 from flask_login import logout_user 
 
-
 import uuid
 
 from .forms import SignupForm
@@ -72,9 +71,11 @@ def loginSend():
     user = userRepository.getByEmail(UserMail.fromString(form.email.data))
 
     if not user:
+        form.submit.errors.append("Wrong User or Password")
         return render_template('login_form.html', form=form)
 
     if not user.verifyPassword(form.password.data):
+        form.submit.errors.append("Wrong User or Password")
         return render_template('login_form.html', form=form)
 
     login_user(user)
