@@ -26,3 +26,18 @@ class TestComment(unittest.TestCase):
         value = comment.value
 
         self.assertEqual(value, expectedValue)
+
+    
+    def test_tuple_constructor(self):
+        commentTuple = (
+            str(uuid.uuid4()),
+            str(uuid.uuid4()),
+            str(uuid.uuid4()),
+            "Muy bueno tu post"
+        )
+        comment = Comment.fromSortedStringTuple(commentTuple)
+        
+        expectedValue = Comment
+        value = type(comment)
+
+        self.assertEqual(value, expectedValue)
