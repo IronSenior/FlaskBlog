@@ -13,7 +13,8 @@ def create_user_table():
               db.Column('userid', db.String(36), nullable=False),
               db.Column('username', db.String(255), nullable=False),
               db.Column('fullname', db.String(255), nullable=False),
-              db.Column('email', db.String(255), nullable=False)
+              db.Column('email', db.String(255), nullable=False),
+              db.Column('password', db.String(255), nullable=False)
               )
               
     metadata.create_all(engine) #Creates the table

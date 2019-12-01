@@ -1,15 +1,8 @@
 {% extends "base_template.html" %}
-{% block title %}Registro de usuarios{% endblock %}
+{% block title %}Log In{% endblock %}
 {% block content %}
-    <form action="/signup/send/" method="post" novalidate>
+    <form action="/auth/login/send/" method="post" novalidate>
         {{ form.hidden_tag() }}
-        <div>
-            {{ form.name.label }}
-            {{ form.name(size=64) }}<br>
-            {% for error in form.name.errors %}
-            <span style="color: red;">{{ error }}</span>
-            {% endfor %}
-        </div>
         <div>
             {{ form.email.label }}
             {{ form.email }}<br>

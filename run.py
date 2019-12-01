@@ -5,8 +5,8 @@ from flask import url_for
 from flask import render_template
 import uuid
 import os
-from .forms import SignupForm, PostForm
-
+from .forms import PostForm
+from flask_login import LoginManager
 
 from .src.user.model.user import User
 from .src.user.model.username import Username
@@ -15,38 +15,26 @@ from .src.user.model.usermail import UserMail
 from .src.user.model.userId import UserId
 from .src.user.repository.userRepository import UserRepository
 
+from .src.user.application.auth import auth
+
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ["SECRET_KEY"]
+
+app.register_blueprint(auth)
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    userRepository = UserRepository()
+    return userRepository.getById(user_id)
+
 
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
-
-
-@app.route('/signup/', methods=['GET'])
-def signup():
-    return render_template('signup_form.html', form=SignupForm())
-
-
-@app.route('/signup/send/', methods=['POST'])
-def signupSend():
-    form = SignupForm()
-    if form.validate_on_submit():
-        data = get_user_data(form)
-        user = User(UserId(uuid.uuid4()), Username.fromString(data["name"]), UserMail.fromString(data["email"]), Fullname.fromString(data.get("fullname", "NO Name")))
-        repository = UserRepository()
-        repository.add(user)
-        return redirect(url_for('index'))
-
-    return render_template('signup_form.html', form=form)
-
-def get_user_data(form: SignupForm):
-    return {
-        'name': form.name.data,
-        'email': form.email.data,
-        'password': form.password.data,
-    }
-
 
 @app.route('/newPost', methods=['GET'])
 def newPost():
