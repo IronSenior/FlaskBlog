@@ -14,6 +14,7 @@ class User():
         self.__email: UserMail = userMail
         self.__password: Password = password
 
+    # This function should be in repository
     @staticmethod
     def fromSortedStringTuple(user: tuple):
         User.__checkTupleSize(user)

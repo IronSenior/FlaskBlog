@@ -6,7 +6,7 @@ class UserId():
     def __init__(self, userid: UUID):
         self.checkUniqueId(userid)
         self.checkIdVersion(userid)
-        self.__value: int = userid
+        self.__value: UUID = userid
 
     @staticmethod
     def fromString(userid: str):

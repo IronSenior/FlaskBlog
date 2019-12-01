@@ -8,11 +8,7 @@ import os
 from .forms import PostForm
 from flask_login import LoginManager
 
-from .src.user.model.user import User
-from .src.user.model.username import Username
-from .src.user.model.fullname import Fullname
-from .src.user.model.usermail import UserMail
-from .src.user.model.userId import UserId
+
 from .src.user.repository.userRepository import UserRepository
 
 from .src.user.application.auth import auth
@@ -24,7 +20,6 @@ app.register_blueprint(auth)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-
 
 @login_manager.user_loader
 def load_user(user_id):
