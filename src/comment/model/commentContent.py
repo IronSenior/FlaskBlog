@@ -1,7 +1,7 @@
 
 
 
-class PostCommentContent():
+class CommentContent():
     
     def __init__(self, content: str):
         self.__value = content
@@ -9,7 +9,7 @@ class PostCommentContent():
     
     @staticmethod
     def fromString(content: str):
-        return PostCommentContent(content)
+        return CommentContent(content)
 
     @property
     def value(self):

@@ -3,7 +3,6 @@ import os
 import sqlalchemy as db
 from uuid import UUID
 from ..model.post import Post
-from ..model.postComment import PostComment
 
 class UserRepository():
 
