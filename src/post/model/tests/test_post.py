@@ -22,19 +22,3 @@ class TestPost(unittest.TestCase):
         value = type(post)
 
         self.assertEqual(value, expectedValue)
-
-
-    def test_tuple_constructor(self):
-        postTuple = (
-            str(uuid.uuid4()),
-            str(uuid.uuid4()),
-            "Post Title",
-            "Post Subtitle",
-            "Post Content"
-        )
-        post = Post.fromSortedStringTuple(postTuple)
-
-        expectedValue = Post
-        value = type(post)
-
-        self.assertEqual(value, expectedValue)

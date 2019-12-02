@@ -22,23 +22,6 @@ class TestUser(unittest.TestCase):
         value = User(userid, username, usermail, fullname, password)
         
         self.assertEqual(type(value), expectedValue)
-
-
-    def test_tuple_constructor(self):
-        user_tuple = (str(uuid.uuid4()), "Pepe", "Jose Marquez", "pepemarquezof@gmail.com", sha256_crypt.encrypt("password"))
-
-        expectedValue = User
-        value = User.fromSortedStringTuple(user_tuple)
-
-        self.assertEqual(type(value), expectedValue)
-
-
-    def test_bad_tuple_constructor(self):
-        user_tuple = (str(uuid.uuid4()), "Pepe", sha256_crypt.encrypt("password"))
-
-        with self.assertRaises(ValueError):
-            value = User.fromSortedStringTuple(user_tuple)
-
         
     def test_it_can_verify_password(self):
         userid = UserId(uuid.uuid4())
