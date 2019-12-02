@@ -12,19 +12,9 @@ class Comment():
         self.__postid: PostId = postid
         self.__parentid: CommentId = parentid
         self.__content: CommentContent = content
-    
-
-    @staticmethod
-    def fromSortedStringTuple(commentTuple):
-        return Comment(
-            commentid=CommentId.fromString(commentTuple[0]),
-            userid=UserId.fromString(commentTuple[1]),
-            postid=PostId.fromString(commentTuple[2]),
-            content=CommentContent.fromString(commentTuple[3])
-        )
 
     @property
-    def value(self):
+    def content(self):
         return self.__content.value
 
     @property

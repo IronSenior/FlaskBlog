@@ -14,23 +14,6 @@ class User():
         self.__email: UserMail = userMail
         self.__password: Password = password
 
-    # This function should be in repository
-    @staticmethod
-    def fromSortedStringTuple(user: tuple):
-        User.__checkTupleSize(user)
-        return User(
-            userid = UserId.fromString(user[0]),
-            username = Username.fromString(user[1]),
-            userFullname= Fullname.fromString(user[2]),
-            userMail = UserMail.fromString(user[3]),
-            password = Password(user[4]) 
-        )
-
-    @staticmethod
-    def __checkTupleSize(user: tuple):
-        if len(user) != 5:
-            raise ValueError()
-
     @property
     def userId(self):
         return self.__userId.value

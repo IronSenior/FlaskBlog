@@ -14,24 +14,6 @@ class Post():
         self.__subtitle: PostSubtitle = subtitle
         self.__content: PostContent = content
 
-
-    # This function should be in repository
-    @staticmethod
-    def fromSortedStringTuple(post: tuple):
-        Post.__checkTupleSize(post)
-        return Post(
-            postid = PostId.fromString(post[0]),
-            userid = UserId.fromString(post[1]),
-            title = PostTitle.fromString(post[2]),
-            subtitle = PostSubtitle.fromString(post[3]),
-            content = PostContent.fromString(post[4])
-        )
-    
-    @staticmethod
-    def __checkTupleSize(post: tuple):
-        if len(post) != 5:
-            raise ValueError("Post Tuple is not well made")
-    
     @property
     def postid(self):
         return self.__postId.value
