@@ -1,6 +1,3 @@
-
-
-
 class CommentContent():
     
     def __init__(self, content: str):

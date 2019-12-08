@@ -12,11 +12,13 @@ from flask_login import LoginManager
 from .src.user.repository.userRepository import UserRepository
 
 from .src.user.application.auth import auth
+from .src.post.application.post import post
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ["SECRET_KEY"]
 
 app.register_blueprint(auth)
+app.register_blueprint(post)
 
 login_manager = LoginManager()
 login_manager.init_app(app)

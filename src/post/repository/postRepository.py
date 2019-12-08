@@ -4,7 +4,7 @@ import uuid
 from uuid import UUID
 import os
 
-from src.user.model.userId import UserId
+from ...user.model.userId import UserId
 from ..model.post import Post
 from ..model.postId import PostId
 from ..model.postTitle import PostTitle
@@ -48,3 +48,14 @@ class PostRepository():
             subtitle = PostSubtitle.fromString(result[3]),
             content = PostContent.fromString(result[4])
         )
+
+    def getByUserId(self, userid: UUID):
+        query = db.select([self.__posts]).where(self.__posts.columns.userid == userid)
+        resultProxy = self.__conection.execute(query)
+        resultSet = resultProxy.fetchall()
+        if not resultSet:
+            return None
+        posts = []
+        for post in resultSet:
+            posts.append(self.__getPostFromResult(post))
+        return posts

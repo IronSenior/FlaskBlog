@@ -2,7 +2,7 @@ from .postTitle import PostTitle
 from .postSubtitle import PostSubtitle
 from .postContent import PostContent
 from .postId import PostId
-from src.user.model.userId import UserId
+from ...user.model.userId import UserId
 
 
 class Post():
