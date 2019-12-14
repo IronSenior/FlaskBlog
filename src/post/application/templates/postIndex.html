@@ -47,7 +47,7 @@
                 <h1>Ultimos Posts</h1>
                 <div class="row">
                   {% for post in posts %}
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 mb-3">
                       <div class="card">
                         <div class="card-body">
                           <a href="{{ '/post/%s' %(post.postid)}}"><h5 class="card-title">{{ post.title }}</h5></a>

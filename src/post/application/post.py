@@ -61,7 +61,7 @@ def get_post_from_data(form: NewPostForm):
 @post.route('/index/', methods=["GET"])
 def postIndex():
     postRepository = PostRepository()
-    posts = postRepository.getAll()
+    posts = postRepository.getAll() or []
 
     return render_template('postIndex.html', posts=posts)
 
@@ -72,7 +72,6 @@ def getPost(postid: str):
     postRepository = PostRepository()
     userRepository = UserRepository()
     post = postRepository.getById(UUID(postid))
-    
 
     if not post:
         abort(404)
@@ -90,16 +89,13 @@ def checkId(parameterId: str):
 @post.route('/user/<userid>/', methods=["GET"])
 def userPosts(userid: str):
     checkId(userid)
-    checkUserExists(userid)
     postRepository = PostRepository()
-    posts = postRepository.getByUserId(UUID(userid))
-
-    return render_template('userPosts.html', posts=posts)
-
-
-def checkUserExists(userid: str):
     userRepository = UserRepository()
-    user = userRepository.getById(UUID(userid))
 
-    if not user:
+    posts = postRepository.getByUserId(UUID(userid)) or []
+    author = userRepository.getById(UUID(userid))
+
+    if not author:
         abort(404)
+
+    return render_template('userPosts.html', posts=posts, author=author)
