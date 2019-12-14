@@ -70,12 +70,15 @@ def postIndex():
 def getPost(postid: str):
     checkId(postid)
     postRepository = PostRepository()
+    userRepository = UserRepository()
     post = postRepository.getById(UUID(postid))
+    
 
     if not post:
         abort(404)
 
-    return render_template('postPage.html', post=post)
+    author = userRepository.getById(post.userid)
+    return render_template('postPage.html', post=post, author=author)
 
 def checkId(parameterId: str):
     try:
