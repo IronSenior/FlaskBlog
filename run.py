@@ -3,6 +3,8 @@ from flask import request
 from flask import redirect
 from flask import url_for
 from flask import render_template
+from flask_login import current_user
+
 import uuid
 import os
 from .forms import PostForm
@@ -31,4 +33,6 @@ def load_user(user_id):
 
 @app.route('/', methods=['GET'])
 def index():
+    if current_user.is_authenticated:
+        return redirect("/post/index/")
     return render_template('index.html')
