@@ -2,6 +2,7 @@ from flask import Blueprint
 from flask import render_template
 from flask import redirect
 from flask import url_for
+from flask import logging
 from flask_login import login_required
 from flask_login import login_user
 from flask_login import logout_user 
@@ -20,7 +21,7 @@ from ..model.password import Password
 from ..repository.userRepository import UserRepository
 
 
-auth = Blueprint('auth', __name__, url_prefix="/auth", template_folder='templates')
+auth = Blueprint('auth', __name__, url_prefix="/auth", template_folder='templates', static_folder='static')
 
 
 @auth.route('/signup/', methods=['GET'])
