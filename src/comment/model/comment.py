@@ -1,5 +1,5 @@
-from src.user.model.userId import UserId
-from src.post.model.postId import PostId
+from ...user.model.userId import UserId
+from ...post.model.postId import PostId
 from .commentContent import CommentContent
 from .commentId import CommentId
 

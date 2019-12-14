@@ -40,12 +40,12 @@
   </nav>
 
   <!-- Call to Action -->
-  <section>
+  <section class="mb-5">
     <div class="container">
-        <div class="row">
+        <div class="row mt-4">
             <div class="col-md-12">
-                <h1 class="text-center">{{ post.title }}</h1>
-                <h2 class="text-center">{{ post.subtitle }}</h2>
+                <h1 class="text-center mb-3">{{ post.title }}</h1>
+                <h2 class="text-center mb-3">{{ post.subtitle }}</h2>
                 <div class="row">
                     <div class="col-lg-12">
                         {{ post.content|safe }}
@@ -69,6 +69,38 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="testimonials text-center">
+    <div class="container">
+      <h2 class="mb-5">Comments</h2>
+      <div class="row mb-4">
+        <div class="col-md-12">
+            <form action={{ "/comment/new/%s" %(post.postid) }} method="post" novalidate>
+              {{ commentForm.hidden_tag() }}
+              <div class="row mb-2">
+                <div class="col-md-12">
+                    {{ commentForm.content(class="form-control") }}
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-md-12">
+                    {{ commentForm.submit(class="btn btn-primary btn-block col-md-2 float-right")}}
+                </div>
+              </div>
+            </form>
+        </div>
+      </div>
+      {% for comment in comments %}
+        <div class="row">
+          <div class="card mb-3">
+            <div class="card-body">
+              {{comment.content}}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
     </div>
   </section>
 

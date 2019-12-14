@@ -22,6 +22,9 @@ from ..model.postContent import PostContent
 from ...user.model.userId import UserId
 from ...user.repository.userRepository import UserRepository
 
+from ...comment.repository.commentRepository import CommentRepository
+from ...comment.application.forms import NewCommentForm
+
 
 post = Blueprint('post', __name__, url_prefix="/post", template_folder='templates')
 
@@ -71,13 +74,16 @@ def getPost(postid: str):
     checkId(postid)
     postRepository = PostRepository()
     userRepository = UserRepository()
+    commentRepository = CommentRepository()
     post = postRepository.getById(UUID(postid))
 
     if not post:
         abort(404)
 
     author = userRepository.getById(post.userid)
-    return render_template('postPage.html', post=post, author=author)
+    comments = commentRepository.getByPost(UUID(postid)) or []
+    return render_template('postPage.html', post=post, author=author, comments=comments, commentForm=NewCommentForm())
+
 
 def checkId(parameterId: str):
     try:

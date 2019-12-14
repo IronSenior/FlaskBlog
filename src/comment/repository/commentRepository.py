@@ -4,8 +4,8 @@ import uuid
 from uuid import UUID
 import os
 
-from src.user.model.userId import UserId
-from src.post.model.postId import PostId
+from ...user.model.userId import UserId
+from ...post.model.postId import PostId
 from ..model.comment import Comment
 from ..model.commentId import CommentId
 from ..model.commentContent import CommentContent
@@ -47,4 +47,15 @@ class CommentRepository():
             content=CommentContent.fromString(result[3]),
             parentid= CommentId.fromString(result[4]) if result[4] else None
         )
+    
+    def getByPost(self, postid: UUID):
+        query = db.select([self.__comments]).where(self.__comments.columns.postid == postid)
+        resultProxy = self.__conection.execute(query)
+        resultSet = resultProxy.fetchall()
+        if not resultSet:
+            return None
+        comments = []
+        for comment in resultSet:
+            comments.append(self.__getCommentFromResult(comment))
+        return comments
 

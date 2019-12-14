@@ -15,12 +15,14 @@ from .src.user.repository.userRepository import UserRepository
 
 from .src.user.application.auth import auth
 from .src.post.application.post import post
+from .src.comment.application.comment import comment
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ["SECRET_KEY"]
 
 app.register_blueprint(auth)
 app.register_blueprint(post)
+app.register_blueprint(comment)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
