@@ -25,25 +25,24 @@
 								<div class="form-group">
 									<label for="email">E-Mail Address</label>
 									{{ form.email(class="form-control", size=64) }}
-									<div class="invalid-feedback">
-										Email is invalid
-									</div>
+									{% for error in form.email.errors %}
+										<span style="color: red;">{{ error }}</span>
+									{% endfor %}
 								</div>
 
 								<div class="form-group">
-									<label for="password">Password
-										<a href="forgot.html" class="float-right">
-											Forgot Password?
-										</a>
-									</label>
+									<label for="password">Password</label>
 									{{ form.password(class="form-control") }}
-								    <div class="invalid-feedback">
-								    	Password is required
-							    	</div>
+									{% for error in form.password.errors %}
+										<span style="color: red;">{{ error }}</span>
+									{% endfor %}
 								</div>
 
 								<div class="form-group m-0">
 									{{ form.submit(class="btn btn-primary btn-block") }}
+									{% for error in form.submit.errors %}
+										<span style="color: red;">{{ error }}</span>
+									{% endfor %}
 								</div>
 								<div class="mt-4 text-center">
 									Don't have an account? <a href="/auth/signup/">Create One</a>
