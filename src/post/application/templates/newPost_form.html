@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>UCO Project - Crear Post</title>
+  <title>UCO INNOVA - Crear Post</title>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
@@ -47,19 +47,19 @@
   <!-- Call to Action -->
   <section class="text-center">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
+        <div class="row mt-4">
+            <div class="col-md-12 mb-3">
                 <h1>Nuevo Post</h1>
                 <form action="/post/new/send/" method="POST" novalidate="">
                     {{ form.hidden_tag() }}
                     <div class="form-group">
-                        <div class="col-md-6">
-                            {{ form.title(class="form-control", size=64) }}
+                        <div class="col-md-12">
+                            {{ form.title(class="form-control", placeholder="Título", size=64) }}
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-md-6">
-                            {{ form.subtitle(class="form-control", size=64) }}
+                        <div class="col-md-12">
+                            {{ form.subtitle(class="form-control", placeholder="Subtítulo", size=64) }}
                         </div>
                     </div>
                     <div class="form-group">

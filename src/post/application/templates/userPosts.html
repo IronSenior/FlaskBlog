@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>UCO Project - Crear Post</title>
+  <title>UCO INNOVA - Posts</title>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
@@ -22,7 +22,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
-        <a class="navbar-brand" href="/">UCO PROJECT</a>
+        <a class="navbar-brand" href="/">UCO INNOVA</a>
         {% if current_user.is_authenticated %}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -39,12 +39,24 @@
     </div>
   </nav>
 
+  <!-- Masthead -->
+  <header class="masthead text-white text-center" style="background-image: url('/static/img/books.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-9 mx-auto">
+          <h1 class="mb-5">Ultimos Posts de {{ author.username }}</h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
   <!-- Call to Action -->
   <section class="text-center">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 mt-5">
-                <h1>Ultimos Posts de {{ author.username }}</h1>
+            <div class="col-md-12 mt-4">
                 <div class="row">
                   {% for post in posts %}
                     <div class="col-sm-4 mb-3">

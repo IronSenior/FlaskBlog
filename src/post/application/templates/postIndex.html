@@ -39,13 +39,25 @@
     </div>
   </nav>
 
+  <!-- Masthead -->
+  <header class="masthead text-white text-center" style="background-image: url('/static/img/books.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-9 mx-auto">
+          <h1 class="mb-5">Ultimos Posts</h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
   <!-- Call to Action -->
   <section class="text-center">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 mt-5">
-                <h1>Ultimos Posts</h1>
-                <div class="row mt-4">
+            <div class="col-md-12 mt-4">
+                <div class="row">
                   {% for post in posts %}
                     <div class="col-sm-4 mb-3">
                       <div class="card">
