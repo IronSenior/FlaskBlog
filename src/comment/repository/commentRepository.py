@@ -5,6 +5,7 @@ from uuid import UUID
 import os
 
 from ...user.model.userId import UserId
+from ...user.model.username import Username
 from ...post.model.postId import PostId
 from ..model.comment import Comment
 from ..model.commentId import CommentId
@@ -20,7 +21,7 @@ class CommentRepository():
         self.__comments = db.Table("comments", self.__metadata, autoload=True, autoload_with=self.__engine)
 
     def add(self, comment: Comment):
-        query = db.insert(self.__comments).values(commentid=comment.commentid, userid=comment.userid, postid=comment.postid, content=comment.content, parentid=comment.parentid)
+        query = db.insert(self.__comments).values(commentid=comment.commentid, userid=comment.userid, postid=comment.postid, username=comment.username, content=comment.content, parentid=comment.parentid)
         resultProxy = self.__conection.execute(query)
 
     def delete(self, comment: Comment):
@@ -44,8 +45,9 @@ class CommentRepository():
             commentid=CommentId.fromString(result[0]),
             userid=UserId.fromString(result[1]),
             postid=PostId.fromString(result[2]),
-            content=CommentContent.fromString(result[3]),
-            parentid= CommentId.fromString(result[4]) if result[4] else None
+            username=Username.fromString(result[3]),
+            content=CommentContent.fromString(result[4]),
+            parentid= CommentId.fromString(result[5]) if result[5] else None
         )
     
     def getByPost(self, postid: UUID):

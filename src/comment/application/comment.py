@@ -12,6 +12,7 @@ from ..model.commentId import CommentId
 from ..model.commentContent import CommentContent
 
 from ...user.model.userId import UserId
+from ...user.model.username import Username
 from ...post.model.postId import PostId
 
 from .forms import NewCommentForm
@@ -43,6 +44,7 @@ def get_comment_from_data(form: NewCommentForm, postid: str):
         commentid=CommentId(uuid.uuid4()),
         userid=UserId(current_user.userId),
         postid=PostId.fromString(postid),
+        username=Username.fromString(current_user.username),
         content=CommentContent.fromString(form.content.data)
     )
 

@@ -1,4 +1,5 @@
 from ...user.model.userId import UserId
+from ...user.model.username import Username
 from ...post.model.postId import PostId
 from .commentContent import CommentContent
 from .commentId import CommentId
@@ -6,10 +7,11 @@ from .commentId import CommentId
 
 class Comment():
     
-    def __init__(self, commentid: CommentId, userid: UserId, postid: PostId, content: CommentContent, parentid: CommentId = None):
+    def __init__(self, commentid: CommentId, userid: UserId, postid: PostId, username: Username, content: CommentContent, parentid: CommentId = None):
         self.__commentid: CommentId = commentid
         self.__userid: UserId = userid
         self.__postid: PostId = postid
+        self.__username: Username = username
         self.__parentid: CommentId = parentid
         self.__content: CommentContent = content
 
@@ -26,6 +28,10 @@ class Comment():
     @property
     def userid(self):
         return self.__userid.value
+
+    @property
+    def username(self):
+        return self.__username.value
 
     @property
     def postid(self):

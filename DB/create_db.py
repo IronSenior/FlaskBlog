@@ -31,8 +31,9 @@ def create_post_table():
 def create_comment_table():
     comments = db.Table('comments', metadata,
                 db.Column('commentid', db.String(36), nullable=False),
-                db.Column('postid', db.String(36), nullable=False),
                 db.Column('userid', db.String(36), nullable=False),
+                db.Column('postid', db.String(36), nullable=False),
+                db.Column('username', db.String(255), nullable=False),
                 db.Column('content', db.String(1000), nullable=False),
                 db.Column('parentid', db.String(36), nullable=True),
             )

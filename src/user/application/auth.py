@@ -40,6 +40,7 @@ def signupSend():
     user = get_user_from_data(form)
     userRepository.add(user)
 
+    login_user(user)
     return redirect(url_for('index'))
 
 def get_user_from_data(form: SignupForm):
