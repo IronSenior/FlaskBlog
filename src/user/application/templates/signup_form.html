@@ -19,10 +19,14 @@
 					<div class="card fat">
 						<div class="card-body">
 							<h4 class="card-title">Register</h4>
-							<form method="POST" class="my-login-validation" novalidate="">
+							<form action="/auth/signup/send/" method="POST" class="my-login-validation" novalidate="">
+								{{ form.hidden_tag() }}
 								<div class="form-group">
 									<label for="username">User Name</label>
 									{{ form.username(class="form-control") }}
+									{% for error in form.username.errors %}
+										<span style="color: red;">{{ error }}</span>
+									{% endfor %}
 									<div class="invalid-feedback">
 										What's your user name?
 									</div>
@@ -31,6 +35,9 @@
 								<div class="form-group">
 									<label for="fullname">Full Name</label>
 									{{ form.fullname(class="form-control") }}
+									{% for error in form.fullname.errors %}
+										<span style="color: red;">{{ error }}</span>
+									{% endfor %}
 									<div class="invalid-feedback">
 										What's your name?
 									</div>
@@ -39,6 +46,9 @@
 								<div class="form-group">
 									<label for="email">E-Mail Address</label>
 									{{ form.email(class="form-control", type="email", id="email", size=64) }}
+									{% for error in form.email.errors %}
+										<span style="color: red;">{{ error }}</span>
+									{% endfor %}
 									<div class="invalid-feedback">
 										Your email is invalid
 									</div>
@@ -47,6 +57,9 @@
 								<div class="form-group">
 									<label for="password">Password</label>
 									{{ form.password(class="form-control", id="password") }}
+									{% for error in form.password.errors %}
+										<span style="color: red;">{{ error }}</span>
+									{% endfor %}
 									<div class="invalid-feedback">
 										Your password is invalid
 									</div>
