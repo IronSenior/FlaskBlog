@@ -32,24 +32,3 @@ def load_user(user_id):
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
-
-@app.route('/newPost', methods=['GET'])
-def newPost():
-    return render_template("post_form.html", form=PostForm())
-
-@app.route('/newPost/send/', methods=['POST'])
-def newPostSend():
-    form = PostForm()
-    if form.validate_on_submit():
-        data = get_post_data(form)
-        #TODO
-        return redirect(url_for('index'))
-    return render_template('post_form.html', form=form)
-
-
-def get_post_data(form: PostForm):
-    return {
-        'title' : form.title.data,
-        'title_slug' : form.title_slug.data,
-        'content' : form.content.data
-    }
