@@ -27,7 +27,6 @@ auth = Blueprint('auth', __name__, url_prefix="/auth", template_folder='template
 def signup():
     return render_template('signup_form.html', form=SignupForm())
 
-
 @auth.route('/signup/send/', methods=['POST'])
 def signupSend():
     form = SignupForm()
@@ -42,7 +41,6 @@ def signupSend():
 
     return redirect(url_for('index'))
 
-    
 def get_user_from_data(form: SignupForm):
     user = User(
         userid = UserId(uuid.uuid4()),

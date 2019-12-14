@@ -59,3 +59,15 @@ class PostRepository():
         for post in resultSet:
             posts.append(self.__getPostFromResult(post))
         return posts
+
+
+    def getAll(self):
+        query = db.select([self.__posts])
+        resultProxy = self.__conection.execute(query)
+        resultSet = resultProxy.fetchall()
+        if not resultSet:
+            return None
+        posts = []
+        for post in resultSet:
+            posts.append(self.__getPostFromResult(post))
+        return posts

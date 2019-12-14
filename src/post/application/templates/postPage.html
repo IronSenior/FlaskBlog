@@ -1,0 +1,9 @@
+{% extends "base_template.html" %}
+{% block title %}New Post{% endblock %}
+{% block content %}
+    <div>
+        <span>{{ post.title }}</span><br/>
+        <span>{{ post.subtitle }}</span><br/>
+        <span>{{ post.content }}</span><br/>
+    </div>
+{% endblock %}

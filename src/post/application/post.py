@@ -2,11 +2,13 @@ from flask import Blueprint
 from flask import render_template
 from flask import url_for
 from flask import redirect
+from flask import abort
 
 from flask_login import current_user
 from flask_login import login_required
 
 import uuid
+from uuid import UUID
 
 from .forms import NewPostForm
 from ..repository.postRepository import PostRepository
@@ -18,6 +20,8 @@ from ..model.postSubtitle import PostSubtitle
 from ..model.postContent import PostContent
 
 from ...user.model.userId import UserId
+from ...user.repository.userRepository import UserRepository
+
 
 post = Blueprint('post', __name__, url_prefix="/post", template_folder='templates')
 
@@ -26,6 +30,7 @@ post = Blueprint('post', __name__, url_prefix="/post", template_folder='template
 @login_required
 def new():
     return render_template('newPost_form.html', form=NewPostForm())
+
 
 @post.route('/new/send/', methods=["POST"])
 @login_required
@@ -51,3 +56,47 @@ def get_post_from_data(form: NewPostForm):
         content=PostContent.fromString(form.content.data)
     )
     return post
+
+
+@post.route('/index/', methods=["GET"])
+def postIndex():
+    postRepository = PostRepository()
+    posts = postRepository.getAll()
+
+    return render_template('postIndex.html', posts=posts)
+
+
+@post.route('/<postid>/', methods=["GET"])
+def getPost(postid: str):
+    checkId(postid)
+    postRepository = PostRepository()
+    post = postRepository.getById(UUID(postid))
+
+    if not post:
+        abort(404)
+
+    return render_template('postPage.html', post=post)
+
+def checkId(parameterId: str):
+    try:
+        UUID(parameterId)
+    except:
+        abort(404)
+
+
+@post.route('/user/<userid>/', methods=["GET"])
+def userPosts(userid: str):
+    checkId(userid)
+    checkUserExists(userid)
+    postRepository = PostRepository()
+    posts = postRepository.getByUserId(UUID(userid))
+
+    return render_template('userPosts.html', posts=posts)
+
+
+def checkUserExists(userid: str):
+    userRepository = UserRepository()
+    user = userRepository.getById(UUID(userid))
+
+    if not user:
+        abort(404)
