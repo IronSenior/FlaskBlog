@@ -5,4 +5,4 @@ from wtforms.validators import DataRequired
 
 class NewCommentForm(FlaskForm):
     content = TextAreaField("Content", validators=[DataRequired()])
-    submit = SubmitField("Guardar")
+    submit = SubmitField("Comentar")

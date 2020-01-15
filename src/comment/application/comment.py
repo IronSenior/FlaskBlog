@@ -33,19 +33,37 @@ def newComment(postid):
     commentRepository.add(comment)
     return redirect("/post/%s" %(postid))
 
+
+@comment.route("/new/<postid>/<parentid>", methods=["POST"])
+def newChildComment(postid, parentid):
+    checkId(parentid)
+    checkId(postid)
+    form = NewCommentForm()
+    commentRepository = CommentRepository()
+
+    if not form.validate_on_submit():
+        return redirect("/post/%s" %(postid))
+    
+    comment = get_comment_from_data(form, postid, parentid)
+    commentRepository.add(comment)
+    return redirect("/post/%s" %(postid))
+
+
 def checkId(parameterId: str):
     try:
         UUID(parameterId)
     except:
         abort(404)
 
-def get_comment_from_data(form: NewCommentForm, postid: str):
+
+def get_comment_from_data(form: NewCommentForm, postid: str, parentid: str = None):
     return Comment(
         commentid=CommentId(uuid.uuid4()),
         userid=UserId(current_user.userId),
         postid=PostId.fromString(postid),
         username=Username.fromString(current_user.username),
-        content=CommentContent.fromString(form.content.data)
+        content=CommentContent.fromString(form.content.data),
+        parentid = CommentId.fromString(parentid) if parentid else None
     )
 
 

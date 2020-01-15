@@ -51,7 +51,7 @@ class CommentRepository():
         )
     
     def getByPost(self, postid: UUID):
-        query = db.select([self.__comments]).where(self.__comments.columns.postid == postid)
+        query = db.select([self.__comments]).where(self.__comments.columns.postid == postid).where(self.__comments.columns.parentid == None)
         resultProxy = self.__conection.execute(query)
         resultSet = resultProxy.fetchall()
         if not resultSet:
@@ -59,5 +59,29 @@ class CommentRepository():
         comments = []
         for comment in resultSet:
             comments.append(self.__getCommentFromResult(comment))
+
+        comments = self.__reagrupate_comments(comments)
         return comments
 
+
+    def __reagrupate_comments(self, comments: list):
+        final_comments = []
+        for comment in comments:
+            final_comments.append({
+                'parent': comment,
+                'children': self.getByParent(comment.commentid)
+            })
+        return final_comments
+
+
+    def getByParent(self, parentid: UUID):
+        query = db.select([self.__comments]).where(self.__comments.columns.parentid == parentid)
+        resultProxy = self.__conection.execute(query)
+        resultSet = resultProxy.fetchall()
+
+        comments = []
+        for comment in resultSet:
+            comments.append(self.__getCommentFromResult(comment))
+        
+        comments = self.__reagrupate_comments(comments)
+        return comments

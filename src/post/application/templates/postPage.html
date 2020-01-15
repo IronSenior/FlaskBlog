@@ -14,6 +14,7 @@
 
   <!-- Custom styles for this template -->
   <link href="{{ url_for('static', filename='css/landing-page.min.css') }}" rel="stylesheet">
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
 </head>
 
@@ -72,7 +73,7 @@
     </div>
   </section>
 
-  <section class="testimonials text-center">
+  <section class="testimonials">
     <div class="container">
       <h2 class="mb-5">Comments</h2>
       <div class="row mb-4">
@@ -92,16 +93,46 @@
             </form>
         </div>
       </div>
-      {% for comment in comments %}
-        <div class="row">
-          <div class="card mb-3">
-            <div class="card-body">
-              {{comment.content}}
+      <div class="row">
+        {% for comment in comments recursive %}
+          <div class="mb-4" style="width: 100%; padding-left: 10px; border-left: 1px dotted black;">
+            <div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>
+                          <a class="float-left" href={{ '/post/user/%s' %(comment['parent'].userid) }}>{{comment['parent'].username}}</a>
+                          <a class="float-right btn btn-outline-primary ml-2" onclick="showReplyForm('{{ comment['parent'].commentid }}')" id="hola">Reply</a>
+                        </p>
+                      <div class="clearfix"></div>
+                        <p>{{comment['parent'].content}}</p>
+                    </div>
+                </div>
             </div>
-            <a href="{{ '/post/user/%s' %(comment.userid) }}">{{comment.username}}</a>
+            <div class="row mb-4" id={{ "form-%s" %(comment["parent"].commentid) }} style="display: none;">
+              <div class="col-md-12">
+                  <form action={{ "/comment/new/%s/%s" %(post.postid, comment["parent"].commentid) }} method="post" novalidate>
+                    {{ commentForm.hidden_tag() }}
+                    <div class="row mb-2">
+                      <div class="col-md-12">
+                          {{ commentForm.content(class="form-control") }}
+                      </div>
+                    </div>
+                    <div class="row mb-2">
+                      <div class="col-md-12">
+                          {{ commentForm.submit(class="btn btn-primary btn-block col-md-2 float-right")}}
+                      </div>
+                    </div>
+                  </form>
+              </div>
+            </div>
+            <div class="ml-3" />
+              {% if comment["children"] %}
+              {{ loop(comment["children"]) }}
+              {% endif %}
+            </div>
           </div>
-        </div>
-      {% endfor %}
+        {% endfor %}
+      </div>
     </div>
   </section>
 
