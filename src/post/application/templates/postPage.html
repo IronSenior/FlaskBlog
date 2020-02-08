@@ -54,8 +54,20 @@
                 </div>
             </div>
         </div>
+        {% if current_user.userId == post.userid %}
+          <div class="row text-center">
+            <div class="col-md-12 text-center">
+              <form action="/post/erase/send/" method="POST" novalidate="">
+                {{ eraseForm.postId(type="hidden", value=post.postid) }}
+                <input type="hidden" value="{{ post.postid }}"/>
+                {{ eraseForm.submit(class="btn btn-danger", onclick="return confirm('Are you sure?')") }}
+              </form>
+            </div>
+          </div>
+        {% endif %}
     </div>
   </section>
+
 
   <!-- Testimonials -->
   <section class="testimonials text-center bg-light">

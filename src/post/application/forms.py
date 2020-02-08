@@ -7,3 +7,7 @@ class NewPostForm(FlaskForm):
     subtitle = StringField('Subtitle', validators=[DataRequired(), Length(max=100)])
     content = TextAreaField('Content', validators=[DataRequired()])
     submit = SubmitField('Guardar')
+
+class ErasePostForm(FlaskForm):
+    postId = StringField('Id', validators=[DataRequired()])
+    submit = SubmitField('Erase Post')

@@ -24,8 +24,8 @@ class PostRepository():
         query = db.insert(self.__posts).values(postid=post.postid, userid=post.userid, title=post.title, subtitle=post.subtitle, content=post.content)
         resultProxy = self.__conection.execute(query)
 
-    def delete(self, post: Post):
-        query = db.delete(self.__posts).where(self.__posts.columns.postid == post.postid)
+    def delete(self, postid: PostId):
+        query = db.delete(self.__posts).where(self.__posts.columns.postid == postid)
         resultProxy = self.__conection.execute(query)
 
     def update(self, post: Post):

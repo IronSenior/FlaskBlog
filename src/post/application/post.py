@@ -11,6 +11,7 @@ import uuid
 from uuid import UUID
 
 from .forms import NewPostForm
+from .forms import ErasePostForm
 from ..repository.postRepository import PostRepository
 
 from ..model.post import Post
@@ -62,6 +63,7 @@ def get_post_from_data(form: NewPostForm):
 
 
 @post.route('/index/', methods=["GET"])
+@login_required
 def postIndex():
     postRepository = PostRepository()
     posts = postRepository.getAll() or []
@@ -70,6 +72,7 @@ def postIndex():
 
 
 @post.route('/<postid>/', methods=["GET"])
+@login_required
 def getPost(postid: str):
     checkId(postid)
     postRepository = PostRepository()
@@ -82,7 +85,8 @@ def getPost(postid: str):
 
     author = userRepository.getById(post.userid)
     comments = commentRepository.getByPost(UUID(postid)) or []
-    return render_template('postPage.html', post=post, author=author, comments=comments, commentForm=NewCommentForm())
+    return render_template('postPage.html', post=post, author=author, comments=comments, 
+                            commentForm=NewCommentForm(), eraseForm=ErasePostForm())
 
 
 def checkId(parameterId: str):
@@ -93,6 +97,7 @@ def checkId(parameterId: str):
 
 
 @post.route('/user/<userid>/', methods=["GET"])
+@login_required
 def userPosts(userid: str):
     checkId(userid)
     postRepository = PostRepository()
@@ -105,3 +110,22 @@ def userPosts(userid: str):
         abort(404)
 
     return render_template('userPosts.html', posts=posts, author=author)
+
+
+@post.route('/erase/send/', methods=["POST"])
+@login_required
+def erasePost():
+    form = ErasePostForm()
+
+    postid = form.postId.data
+    checkId(postid)
+
+    postRepository = PostRepository()
+    post = postRepository.getById(postid)
+    
+    if not current_user.userId == post.userid:
+        abort(403)
+
+    postRepository.delete(postid)
+
+    return redirect(url_for('index'))

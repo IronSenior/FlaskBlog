@@ -7,9 +7,7 @@ from flask_login import current_user
 
 import uuid
 import os
-from .forms import PostForm
 from flask_login import LoginManager
-
 
 from .src.user.repository.userRepository import UserRepository
 
@@ -31,7 +29,6 @@ login_manager.init_app(app)
 def load_user(user_id):
     userRepository = UserRepository()
     return userRepository.getById(user_id)
-
 
 @app.route('/', methods=['GET'])
 def index():
