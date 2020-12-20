@@ -7,7 +7,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/IronSenior/FlaskBlog">
-    <h3 align="center">Little Flask Blog</h3>
+    <h3 align="center">Small Flask Blog</h3>
   </a>
 
 
