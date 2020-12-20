@@ -12,7 +12,7 @@
 
 
   <p align="center">
-    This is a little blog made with flask. It allows several users to share simple articles and comment on other user publications.  
+    This is a small blog made with flask. It allows several users to share simple articles and comment on other user publications.  
     It was made in order to start learning Flask.
     <br />
     <a href="https://github.com/IronSenior/FlaskBlog"><strong>Explore the docs »</strong></a>
